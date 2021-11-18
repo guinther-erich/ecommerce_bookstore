@@ -1,5 +1,8 @@
 ﻿using BookstoreAPIs.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bookstore.Controllers
 {
@@ -20,7 +23,12 @@ namespace Bookstore.Controllers
             _context.todoProducts.Add(new Book { ID = "5", Title = "Contra todo ditador!", Price = 69.0, Quantity = 2, Category = "Best Seller", Img = "img5" });
 
             _context.SaveChanges();
-        
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Book>>> GetProducts()
+        {
+            return await _context.todoProducts.ToListAsync();
         }
     }
 }
