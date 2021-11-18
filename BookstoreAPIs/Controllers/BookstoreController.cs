@@ -43,5 +43,14 @@ namespace Bookstore.Controllers
 
             return Ok(item);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Book>> PostProduct(Book product)
+        {
+            _context.todoProducts.Add(product);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetItem), new { id = product.ID }, product);
+        }
     }
 }
